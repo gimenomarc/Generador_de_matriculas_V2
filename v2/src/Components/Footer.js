@@ -14,6 +14,14 @@ const Footer = () => {
           Marc Gimeno
         </a>
       </p>
+      <p>
+        Este trabajo está marcado con el destino{' '}
+        <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="licencia noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center' }}>
+          CC0 1.0
+          <img style={{ height: '20px', marginLeft: '3px', verticalAlign: 'middle' }} src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt="CC" />
+          <img style={{ height: '20px', marginLeft: '3px', verticalAlign: 'middle' }} src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1" alt="Zero" />
+        </a>
+      </p>
     </footer>
   );
 };
