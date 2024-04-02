@@ -7,23 +7,19 @@ const LicensePlateGenerator = ({ darkMode }) => {
   const [licensePlates, setLicensePlates] = useState([]);
   const [copiedIndex, setCopiedIndex] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [quantity, setQuantity] = useState(10); // Cantidad predeterminada
 
-  const generateLicensePlate = () => {
-    const letters = 'BCDFGHJKLMNPQRSTVWXYZ';
-    const numbers = '0123456789';
-
-    let plate = '';
-    for (let i = 0; i < 4; i++) {
-      const randomDigit = numbers[Math.floor(Math.random() * numbers.length)];
-      plate += randomDigit;
+  const generateLicensePlate = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/generar-matricula/es?cantidad=${quantity}`);
+      if (!response.ok) {
+        throw new Error('Failed to generate license plates');
+      }
+      const data = await response.json();
+      setLicensePlates(data.matriculas);
+    } catch (error) {
+      console.error('Error generating license plates:', error);
     }
-
-    for (let i = 0; i < 3; i++) {
-      const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-      plate += randomLetter;
-    }
-
-    setLicensePlates((prevLicensePlates) => [plate, ...prevLicensePlates]);
   };
 
   const copyLicensePlate = (licensePlate, index) => {
@@ -52,18 +48,32 @@ const LicensePlateGenerator = ({ darkMode }) => {
       </h1>
       <div className="flex flex-col items-center mt-8">
         <div className="flex justify-center">
-          <button
-            className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
-            onClick={generateLicensePlate}
-          >
-            Generar
-          </button>
-          <button
-            className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 ml-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
-            onClick={clearLicensePlates}
-          >
-            Limpiar
-          </button>
+          <div className="flex items-center">
+            <button
+              className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
+              onClick={generateLicensePlate}
+            >
+              Generar
+            </button>
+            <button
+              className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 ml-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
+              onClick={clearLicensePlates}
+            >
+              Limpiar
+            </button>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="text"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className={`border-gray-300 border rounded py-2 px-4 text-center mt-4 mx-2 ${darkMode ? 'text-gray-200 bg-gray-700' : 'text-gray-800 bg-white'}`}
+              style={{ width: '4rem', height: '2.5rem' }}
+            />
+
+          </div>
         </div>
         {licensePlates.length > 0 && (
           <div className="mt-4 w-full">
@@ -108,3 +118,4 @@ const LicensePlateGenerator = ({ darkMode }) => {
 };
 
 export default LicensePlateGenerator;
+
