@@ -7,7 +7,7 @@ const LicensePlateGenerator = ({ darkMode }) => {
   const [licensePlates, setLicensePlates] = useState([]);
   const [copiedIndex, setCopiedIndex] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [quantity, setQuantity] = useState(10); // Cantidad predeterminada
+  const [quantity, setQuantity] = useState(1); // Cantidad predeterminada
 
   const generateLicensePlate = async () => {
     try {
