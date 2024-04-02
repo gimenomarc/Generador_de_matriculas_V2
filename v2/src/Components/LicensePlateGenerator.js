@@ -73,7 +73,19 @@ const LicensePlateGenerator = ({ darkMode }) => {
               pattern="[0-9]*"
               inputMode="numeric"
               value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              onChange={(e) => {
+                // Solo permite números y limita el valor máximo a 500
+                let newValue = e.target.value.replace(/\D/g, ''); // Solo números
+                newValue = Math.min(parseInt(newValue), 500); // Limita a 500
+                setQuantity(newValue);
+              }}
+              onKeyPress={(e) => {
+                // Verifica si la tecla presionada es un número
+                const isNumber = /^[0-9]*$/.test(e.key);
+                if (!isNumber) {
+                  e.preventDefault();
+                }
+              }}
               className={`border-gray-300 border rounded py-2 px-4 text-center mt-4 mx-2 ${darkMode ? 'text-gray-200 bg-gray-700' : 'text-gray-800 bg-white'}`}
               style={{ width: '4rem', height: '2.5rem' }}
             />
