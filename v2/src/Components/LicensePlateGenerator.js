@@ -22,6 +22,11 @@ const LicensePlateGenerator = ({ darkMode }) => {
     }
   };
 
+  const copyAllLicensePlates = () => {
+    const allLicensePlates = licensePlates.join(', ');
+    navigator.clipboard.writeText(allLicensePlates);
+  };
+
   const copyLicensePlate = (licensePlate, index) => {
     navigator.clipboard.writeText(licensePlate);
     setCopiedIndex(index);
@@ -82,6 +87,13 @@ const LicensePlateGenerator = ({ darkMode }) => {
                 }`}
             >
               Matrículas Generadas
+              <button
+                onClick={copyAllLicensePlates}
+                className={`text-blue-500 font-semibold ml-4 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105`}
+                style={{ fontSize: '0.8rem', cursor: 'pointer' }}
+              >
+                Copiar Todo
+              </button>
             </h2>
             <TransitionGroup>
               {licensePlates.map((licensePlate, index) => (
