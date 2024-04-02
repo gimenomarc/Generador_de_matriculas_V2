@@ -46,11 +46,12 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
             <li className="mb-3 sm:mb-0 relative" ref={matriculasRef}>
               <button
                 onClick={toggleMatriculasOptions}
-                className={`nav-link text-white flex items-center hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
+                className={`nav-link text-${darkMode ? 'white' : 'black'} flex items-center hover:text-gray-300 transition-colors duration-300`}
               >
                 <span>Matrículas</span>
-                <ChevronDownIcon className="w-5 h-5 ml-1" /> {/* Icono de flecha hacia abajo */}
+                <ChevronDownIcon className="w-5 h-5 ml-1" />
               </button>
+
               {showMatriculasOptions && (
                 <div className="absolute left-0 mt-1 w-48 bg-gray-800 border border-gray-700 rounded-md z-10">
                   <ul className="py-2">
@@ -58,7 +59,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
                       <Link
                         to="/validar-matricula"
                         className={`block px-4 py-2 text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
-                        onClick={() => setShowMatriculasOptions(false)} // Aquí se agrega el manejador de clics para cerrar el menú
+                        onClick={() => setShowMatriculasOptions(false)}
                       >
                         Validar Matrícula
                       </Link>
@@ -67,7 +68,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
                       <Link
                         to="/matriculas-espana"
                         className={`block px-4 py-2 text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
-                        onClick={() => setShowMatriculasOptions(false)} // Aquí se agrega el manejador de clics para cerrar el menú
+                        onClick={() => setShowMatriculasOptions(false)}
                       >
                         Matrículas de España
                       </Link>
@@ -96,12 +97,12 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
             </li>
           </CSSTransition>
           <CSSTransition classNames="nav-link" timeout={500}>
-            <li className="mb-3 sm:mb-0 last-nav-item"> 
+            <li className="mb-3 sm:mb-0 last-nav-item">
               <Link
                 to="/generar-dni"
-                className={`nav-link text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
+                className={`nav-link text-${darkMode ? 'white' : 'black'} hover:text-gray-300 transition-colors duration-300`}
               >
-                <button className="px-4 py-2 text-sm font-medium hover:text-gray-300 transition-colors duration-300 text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <button className={`px-4 py-2 text-sm font-medium hover:text-gray-300 transition-colors duration-300 text-${darkMode ? 'white' : 'black'} rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}>
                   Generar DNI
                 </button>
               </Link>
