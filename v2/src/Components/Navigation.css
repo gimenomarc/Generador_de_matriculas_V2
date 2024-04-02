@@ -40,3 +40,6 @@
   transform: rotate(90deg);
 }
 
+.last-nav-item {
+  margin-right: 0; 
+}

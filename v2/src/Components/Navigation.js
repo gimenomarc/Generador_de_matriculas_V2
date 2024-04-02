@@ -1,5 +1,4 @@
-// Navigation.js
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Switch from 'react-switch';
@@ -8,6 +7,20 @@ import './Navigation.css';
 
 const Navigation = ({ darkMode, toggleDarkMode }) => {
   const [showMatriculasOptions, setShowMatriculasOptions] = useState(false);
+  const matriculasRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (matriculasRef.current && !matriculasRef.current.contains(event.target)) {
+        setShowMatriculasOptions(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [matriculasRef]);
 
   const toggleMatriculasOptions = () => {
     setShowMatriculasOptions(!showMatriculasOptions);
@@ -30,7 +43,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
             </li>
           </CSSTransition>
           <CSSTransition classNames="nav-link" timeout={500}>
-            <li className="mb-3 sm:mb-0 relative">
+            <li className="mb-3 sm:mb-0 relative" ref={matriculasRef}>
               <button
                 onClick={toggleMatriculasOptions}
                 className={`nav-link text-white flex items-center hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
@@ -45,6 +58,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
                       <Link
                         to="/validar-matricula"
                         className={`block px-4 py-2 text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
+                        onClick={() => setShowMatriculasOptions(false)} // Aquí se agrega el manejador de clics para cerrar el menú
                       >
                         Validar Matrícula
                       </Link>
@@ -53,6 +67,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
                       <Link
                         to="/matriculas-espana"
                         className={`block px-4 py-2 text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
+                        onClick={() => setShowMatriculasOptions(false)} // Aquí se agrega el manejador de clics para cerrar el menú
                       >
                         Matrículas de España
                       </Link>
@@ -61,6 +76,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
                       <Link
                         to="/matriculas-especiales"
                         className={`block px-4 py-2 text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
+                        onClick={() => setShowMatriculasOptions(false)} // Aquí se agrega el manejador de clics para cerrar el menú
                       >
                         Matrículas especiales
                       </Link>
@@ -69,6 +85,7 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
                       <Link
                         to="/matriculas-extranjeras"
                         className={`block px-4 py-2 text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
+                        onClick={() => setShowMatriculasOptions(false)} // Aquí se agrega el manejador de clics para cerrar el menú
                       >
                         Matrículas extranjeras
                       </Link>
@@ -79,12 +96,12 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
             </li>
           </CSSTransition>
           <CSSTransition classNames="nav-link" timeout={500}>
-            <li className="mb-3 sm:mb-0">
+            <li className="mb-3 sm:mb-0 last-nav-item"> 
               <Link
                 to="/generar-dni"
                 className={`nav-link text-white hover:text-gray-300 transition-colors duration-300 ${darkMode ? 'text-gray-200' : ''}`}
               >
-                <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <button className="px-4 py-2 text-sm font-medium hover:text-gray-300 transition-colors duration-300 text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                   Generar DNI
                 </button>
               </Link>
@@ -117,5 +134,6 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
 };
 
 export default Navigation;
+
 
 
