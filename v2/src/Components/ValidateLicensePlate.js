@@ -1,22 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import './ValidateLicensePlate.css';
 
 const ValidateLicensePlate = ({ darkMode }) => {
     const [licensePlate, setLicensePlate] = useState('');
     const [isValid, setIsValid] = useState(null);
+    const isMounted = useRef(true);
 
-    const isMounted = useRef(null);
-
+    // Función para limpiar el mensaje después de 5 segundos
     useEffect(() => {
-        isMounted.current = true;
+        const timer = setTimeout(() => {
+            setIsValid(null);
+        }, 5000);
+
         return () => {
-            isMounted.current = false;
+            clearTimeout(timer);
         };
-    }, []);
+    }, [isValid]);
 
     const validateLicensePlate = () => {
-        fetch(`http://localhost:3001/comprobar-matricula/es/${licensePlate}`)
+        fetch(`http://localhost:3001/comprobar-matricula/es?matriculas=${licensePlate}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -25,13 +28,14 @@ const ValidateLicensePlate = ({ darkMode }) => {
             })
             .then(data => {
                 if (isMounted.current) {
-                    setIsValid(data.esValida);
+                    // Actualizar el estado basado en la respuesta de la API
+                    setIsValid(data.resultados[licensePlate]);
                 }
             })
             .catch(err => {
                 console.error(err);
                 if (isMounted.current) {
-                    setIsValid(false); // Actualiza el estado en caso de error
+                    setIsValid(false); // Actualizar el estado en caso de error
                 }
             });
     };
