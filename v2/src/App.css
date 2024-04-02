@@ -1,0 +1,8 @@
+.dark {
+  background-color: #1f2937;
+  color: #f3f4f6;
+}
+
+.transition-color {
+  transition: background-color 0.5s ease;
+}
