@@ -29,19 +29,19 @@ const Api = ({ darkMode }) => {
             </thead>
             <tbody>
               <tr>
-                <td className="border px-4 py-2">GET /</td>
+                <td className="border px-4 py-2">GET /v1/</td>
                 <td className="border px-4 py-2">Returns a welcome message.</td>
-                <td className="border px-4 py-2"><code>GET /</code></td>
+                <td className="border px-4 py-2"><code>GET /v1/</code></td>
               </tr>
               <tr>
-                <td className="border px-4 py-2">GET /generate-license-plate/:country?quantity=:quantity</td>
+                <td className="border px-4 py-2">GET /v1/generate-license-plate/:country?quantity=:quantity</td>
                 <td className="border px-4 py-2">Generates up to 100 random license plates for the specified country.</td>
-                <td className="border px-4 py-2"><code>GET /generate-license-plate/es?quantity=5</code></td>
+                <td className="border px-4 py-2"><code>GET /v1/generate-license-plate/es?quantity=5</code></td>
               </tr>
               <tr>  
-                <td className="border px-4 py-2">GET /validate-license-plate/:country?licensePlates=:licensePlates</td>
+                <td className="border px-4 py-2">GET /v1/validate-license-plate/:country/:licensePlate</td>
                 <td className="border px-4 py-2">Validates the specified license plates for the given country.</td>
-                <td className="border px-4 py-2"><code>GET /validate-license-plate/es?licensePlates=1234ABC,5678DEF</code></td>
+                <td className="border px-4 py-2"><code>GET /v1/validate-license-plate/es/1234ABC</code></td>
               </tr>
             </tbody>
           </table>

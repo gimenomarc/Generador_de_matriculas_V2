@@ -1,0 +1,1 @@
+pscp -r C:/Users/gimen/Documents/code/Generador_de_matriculas_V2/v2/build root@178.62.209.223:/var/www/generadordematriculas
