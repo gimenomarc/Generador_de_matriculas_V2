@@ -11,7 +11,7 @@ const LicensePlateGenerator = ({ darkMode }) => {
 
   const generateLicensePlate = async () => {
     try {
-      const response = await fetch(`http://api.generadordematriculas.com/v1/generate-license-plate/es?quantity=${quantity}`);
+      const response = await fetch(`https://api.generadordematriculas.com/v1/generate-license-plate/es?quantity=${quantity}`);
       if (!response.ok) {
         throw new Error('Failed to generate license plates');
       }

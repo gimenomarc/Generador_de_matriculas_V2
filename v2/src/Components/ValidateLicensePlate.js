@@ -19,7 +19,7 @@ const ValidateLicensePlate = ({ darkMode }) => {
     }, [isValid]);
 
     const validateLicensePlate = () => {
-        fetch(`http://api.generadordematriculas.com/v1/validate-license-plate/es/${licensePlate}`)
+        fetch(`https://api.generadordematriculas.com/v1/validate-license-plate/es/${licensePlate}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
