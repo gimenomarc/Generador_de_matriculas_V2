@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Switch from 'react-switch';
-import { ChevronDownIcon } from '@heroicons/react/outline'; // Importar icono de flecha hacia abajo desde Heroicons v2
+import { ChevronDownIcon } from '@heroicons/react/outline';
 import './Navigation.css';
 
 const Navigation = ({ darkMode, toggleDarkMode }) => {

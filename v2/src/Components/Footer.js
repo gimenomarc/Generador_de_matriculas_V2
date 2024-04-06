@@ -14,7 +14,7 @@ const Footer = () => {
           Marc Gimeno
         </a>
       </p>
-      <p>
+      <p style={{ fontSize: 'small' }}>
         Este trabajo está marcado con el destino{' '}
         <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="licencia noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center' }}>
           CC0 1.0
