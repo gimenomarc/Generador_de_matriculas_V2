@@ -7,21 +7,23 @@ const DniGenerator = ({ darkMode }) => {
   const [dniNumbers, setDniNumbers] = useState([]);
   const [copiedIndex, setCopiedIndex] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [quantity, setQuantity] = useState(1); // Cantidad predeterminada
 
-  const generateRandomDni = () => {
-    const randomDniNumber = Math.floor(Math.random() * 100000000); // Generate a random 8-digit DNI number
-
-    const controlDigit = calculateControlDigit(randomDniNumber);
-
-    const randomDni = `${randomDniNumber}${controlDigit}`;
-
-    setDniNumbers((prevDniNumbers) => [randomDni, ...prevDniNumbers]);
-  };
-
-  const calculateControlDigit = (dniNumber) => {
-    const controlChars = 'TRWAGMYFPDXBNJZSQVHLCKE';
-    const controlDigit = controlChars.charAt(dniNumber % 23);
-    return controlDigit;
+  const generateRandomDnis = async () => {
+    try {
+      const response = await fetch(`https://api.generadordematriculas.com/v1/generate-dni?quantity=${quantity}`);
+      if (!response.ok) {
+        throw new Error('Failed to generate DNIs');
+      }
+      const data = await response.json();
+      if (data.DNIs) {
+        setDniNumbers(data.DNIs);
+      } else {
+        console.error('No DNIs received from the server');
+      }
+    } catch (error) {
+      console.error('Error generating DNIs:', error);
+    }
   };
 
   const copyDniNumber = (dniNumber, index) => {
@@ -51,10 +53,31 @@ const DniGenerator = ({ darkMode }) => {
         <div className="flex justify-center">
           <button
             className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
-            onClick={generateRandomDni}
+            onClick={generateRandomDnis}
           >
             Generar
           </button>
+          <input
+            type="text"
+            pattern="[0-9]*"
+            inputMode="numeric"
+            value={quantity}
+            onChange={(e) => {
+              // Solo permite números y limita el valor máximo a 500
+              let newValue = e.target.value.replace(/\D/g, ''); // Solo números
+              newValue = Math.min(parseInt(newValue), 500); // Limita a 500
+              setQuantity(newValue);
+            }}
+            onKeyPress={(e) => {
+              // Verifica si la tecla presionada es un número
+              const isNumber = /^[0-9]*$/.test(e.key);
+              if (!isNumber) {
+                e.preventDefault();
+              }
+            }}
+            className={`border-gray-300 border rounded py-2 px-4 text-center mt-4 mx-2 ${darkMode ? 'text-gray-200 bg-gray-700' : 'text-gray-800 bg-white'}`}
+            style={{ width: '4rem', height: '2.5rem' }}
+          />
           <button
             className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 ml-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
             onClick={clearDniNumbers}
@@ -70,7 +93,7 @@ const DniGenerator = ({ darkMode }) => {
               DNI Generados
             </h2>
             <TransitionGroup>
-              {dniNumbers.map((dniNumber, index) => (
+              {dniNumbers && dniNumbers.map((dniNumber, index) => (
                 <CSSTransition key={index} timeout={500} classNames="slide">
                   <div className={`flex items-center bg-gray-100 rounded py-2 px-4 mb-2 ${darkMode ? 'dark-mode' : ''}`}>
                     <span className="flex-grow text-black">{dniNumber}</span>
