@@ -27,7 +27,7 @@ const Api = ({ darkMode }) => {
           This is an API service that generates random license plates for different countries and can also validate the license plates for certain countries. The project is a Node.js server that uses Express to handle HTTPS requests. License plates are generated and checked using country-specific modules. This API is ideal for implementation in any project requiring the generation or validation of license plates.
         </p>
       </CSSTransition>
-      <CSSTransition in={true} appear={true} timeout={900} classNames="fade">
+      <CSSTransition in={true} appear={true} timeout={500} classNames="fade">
         <div className="overflow-x-auto">
           <table className="table-auto mx-auto mb-4">
             <thead>
@@ -52,6 +52,11 @@ const Api = ({ darkMode }) => {
                 <td className="border px-4 py-2">GET /v1/validate-license-plate/:country/:licensePlate</td>
                 <td className="border px-4 py-2">Validates the specified license plates for the given country.</td>
                 <td className="border px-4 py-2"><code>GET /v1/validate-license-plate/es/1234ABC</code></td>
+              </tr>
+              <tr>
+                <td className="border px-4 py-2">GET /v1/generate-dni?quantity=:quantity</td>
+                <td className="border px-4 py-2">Generates up to 100 random DNI numbers.</td>
+                <td className="border px-4 py-2"><code>GET /v1/generate-dni?quantity=5</code></td>
               </tr>
             </tbody>
           </table>
