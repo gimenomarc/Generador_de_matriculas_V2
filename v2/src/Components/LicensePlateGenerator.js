@@ -53,20 +53,12 @@ const LicensePlateGenerator = ({ darkMode }) => {
       </h1>
       <div className="flex flex-col items-center mt-8">
         <div className="flex justify-center">
-          <div className="flex items-center">
-            <button
-              className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
-              onClick={generateLicensePlate}
-            >
-              Generar
-            </button>
-            <button
-              className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 ml-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
-              onClick={clearLicensePlates}
-            >
-              Limpiar
-            </button>
-          </div>
+          <button
+            className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mr-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
+            onClick={generateLicensePlate}
+          >
+            Generar
+          </button>
           <div className="flex items-center">
             <input
               type="text"
@@ -89,8 +81,13 @@ const LicensePlateGenerator = ({ darkMode }) => {
               className={`border-gray-300 border rounded py-2 px-4 text-center mt-4 mx-2 ${darkMode ? 'text-gray-200 bg-gray-700' : 'text-gray-800 bg-white'}`}
               style={{ width: '4rem', height: '2.5rem' }}
             />
-
           </div>
+          <button
+            className={`transition duration-300 ease-in-out transform hover:-translate-y-0.5 hover:scale-105 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 ml-2 flex-grow ${darkMode ? 'dark-mode' : ''}`}
+            onClick={clearLicensePlates}
+          >
+            Limpiar
+          </button>
         </div>
         {licensePlates.length > 0 && (
           <div className="mt-4 w-full">
@@ -142,4 +139,3 @@ const LicensePlateGenerator = ({ darkMode }) => {
 };
 
 export default LicensePlateGenerator;
-
